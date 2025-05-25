@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckMyXMR - Мониторинг майнинга Monero</title>
+    <style>
+        :root {
+            --primary: #4C5270;
+            --secondary: #36EEE0;
+            --accent: #F652A0;
+            --dark: #1A1A2E;
+            --light: #F8F8F8;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(246, 82, 160, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(246, 82, 160, 0.6);
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 3rem 0;
+        }
+        
+        .feature {
+            flex: 1;
+            min-width: 300px;
+            margin: 1rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .how-it-works {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .steps {
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 2rem;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--accent);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .telegram-bot {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .bot-username {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .features {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CheckMyXMR</h1>
+            <p class="subtitle">Мощный Telegram-бот для мониторинга вашего майнинга Monero на пуле MoneroOcean. Получайте статистику в один клик!</p>
+            <a href="https://t.me/checkmyxmr_bot" class="cta-button">Начать использовать бота</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="features">
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <h3>Реальная статистика</h3>
+                <p>Точные данные о вашем хешрейте, балансе и выплатах в режиме реального времени</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">⏱️</div>
+                <h3>Экономия времени</h3>
+                <p>Вся информация о вашем майнинге в одном месте - больше не нужно проверять сайт пула</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🔔</div>
+                <h3>Уведомления</h3>
+                <p>Автоматические оповещения о важных событиях и ежедневные отчеты</p>
+            </div>
+        </section>
+        
+        <section class="telegram-bot">
+            <h2>Наш Telegram-бот</h2>
+            <p>Добавьте бота в свои чаты для удобного мониторинга</p>
+            <div class="bot-username">@checkmyxmr_bot</div>
+            <a href="https://t.me/checkmyxmr_bot" class="cta-button">Перейти к боту</a>
+        </section>
+        
+        <section class="how-it-works">
+            <div class="container">
+                <h2>Как это работает?</h2>
+                <div class="steps">
+                    <div class="step">
+                        <h3>Добавьте бота</h3>
+                        <p>Перейдите в Telegram и найдите нашего бота @checkmyxmr_bot или нажмите кнопку выше</p>
+                    </div>
+                    
+                    <div class="step">
+                        <h3>Введите адрес кошелька</h3>
+                        <p>Бот запросит ваш адрес кошелька Monero, используемый на MoneroOcean</p>
+                    </div>
+                    
+                    <div class="step">
+                        <h3>Получайте статистику</h3>
+                        <p>Теперь вы можете в любой момент запросить актуальную информацию о вашем майнинге</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 CheckMyXMR. Все права защищены.</p>
+            <p>Независимый проект для сообщества Monero</p>
+        </div>
+    </footer>
+</body>
+</html>
