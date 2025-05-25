@@ -23,3 +23,19 @@
    ```bash
    git clone https://github.com/ваш-логин/monero-mining-bot.git
    cd monero-mining-bot
+2. Установите зависимости:
+
+bash
+pip install python-telegram-bot requests
+Запустите бота:
+
+bash
+python bot.py
+Конфигурация
+Задайте переменные в config.py или через окружение:
+
+WALLET_ADDRESS: Ваш XMR-кошелек
+
+TELEGRAM_BOT_TOKEN: Токен бота от @BotFather
+
+TELEGRAM_CHAT_ID: Ваш chat_id для отчетов
