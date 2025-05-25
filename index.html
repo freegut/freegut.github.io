@@ -3,116 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CheckMyXMR - Мониторинг майнинга Monero</title>
+    <title>CheckMyXMR - Продвинутый мониторинг майнинга Monero</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4C5270;
-            --secondary: #36EEE0;
-            --accent: #F652A0;
-            --dark: #1A1A2E;
-            --light: #F8F8F8;
+            --primary: #FF6B00; /* Оранжевый Monero */
+            --primary-dark: #CC5600;
+            --secondary: #4C4C6D;
+            --accent: #1A9FFF;
+            --dark: #121212;
+            --darker: #0A0A0A;
+            --light: #F0F0F0;
+            --lighter: #FFFFFF;
+            --gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            --card-bg: rgba(18, 18, 18, 0.8);
+            --card-border: rgba(255, 107, 0, 0.2);
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: var(--dark);
-            background-color: var(--light);
+            color: var(--light);
+            background-color: var(--dark);
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
         
         header {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
-            color: white;
-            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            padding: 4rem 0 8rem;
             text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255, 107, 0, 0.2);
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            margin-top: 0;
         }
         
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
         }
         
         .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            opacity: 0.85;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
         }
         
         .cta-button {
-            display: inline-block;
-            background-color: var(--accent);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary);
+            color: var(--darker);
+            padding: 15px 35px;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             margin-top: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(246, 82, 160, 0.4);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 107, 0, 0.3);
+            border: none;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
         
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(246, 82, 160, 0.6);
+            box-shadow: 0 6px 25px rgba(255, 107, 0, 0.4);
+            color: var(--darker);
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+        
+        .cta-button:hover::before {
+            transform: translateX(0);
         }
         
         .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            margin: 3rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
         }
         
         .feature {
-            flex: 1;
-            min-width: 300px;
-            margin: 1rem;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
             text-align: center;
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: var(--primary);
         }
         
         .feature-icon {
-            font-size: 3rem;
-            color: var(--secondary);
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .feature h3 {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
+            color: var(--lighter);
+        }
+        
+        .feature p {
+            opacity: 0.85;
+            font-size: 1.05rem;
         }
         
         .how-it-works {
-            background-color: var(--primary);
-            color: white;
-            padding: 3rem 0;
+            background: var(--card-bg);
+            padding: 5rem 0;
+            position: relative;
+            margin: 4rem 0;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
         }
         
         .steps {
             counter-reset: step-counter;
+            display: grid;
+            gap: 2rem;
+            position: relative;
         }
         
         .step {
             position: relative;
-            padding-left: 80px;
-            margin-bottom: 2rem;
+            padding: 2rem 2rem 2rem 100px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateX(10px);
+            border-color: var(--primary);
         }
         
         .step:before {
             counter-increment: step-counter;
             content: counter(step-counter);
             position: absolute;
-            left: 0;
-            top: 0;
-            background-color: var(--accent);
-            color: white;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--darker);
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -121,92 +230,371 @@
             justify-content: center;
             font-size: 1.5rem;
             font-weight: bold;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--lighter);
+        }
+        
+        .step p {
+            opacity: 0.85;
+            margin-bottom: 0;
         }
         
         footer {
-            background-color: var(--dark);
-            color: white;
+            background: rgba(10, 10, 10, 0.8);
+            color: var(--light);
             text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 107, 0, 0.2);
+            position: relative;
+            backdrop-filter: blur(5px);
         }
         
         .telegram-bot {
             text-align: center;
-            margin: 3rem 0;
+            margin: 6rem 0;
+            position: relative;
         }
         
         .bot-username {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 600;
             color: var(--accent);
-            font-weight: bold;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 1.5rem 0;
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(26, 159, 255, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(26, 159, 255, 0.3);
+        }
+        
+        .monero-logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        /* Анимация падающих денег на весь фон */
+        .money-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .money-coin {
+            position: absolute;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="%23FF6B00"/><circle cx="32" cy="32" r="26" fill="%23CC5600"/><text x="32" y="38" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="white">XMR</text></svg>');
+            background-size: contain;
+            width: 30px;
+            height: 30px;
+            opacity: 0.8;
+            animation: falling linear infinite;
+            z-index: 0;
+        }
+        
+        @keyframes falling {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Секция о проекте */
+        .about-project {
+            background: var(--card-bg);
+            padding: 5rem 0;
+            position: relative;
+            margin: 4rem 0;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-text {
+            position: relative;
+        }
+        
+        .about-image {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border: 1px solid var(--primary);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .stat-item {
+            background: rgba(255, 107, 0, 0.1);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 107, 0, 0.2);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .benefits {
+            margin-top: 3rem;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .benefit-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .benefit-text h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--lighter);
+        }
+        
+        .benefit-text p {
+            opacity: 0.85;
+            margin-bottom: 0;
+        }
+        
+        @media (max-width: 1024px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         
         @media (max-width: 768px) {
-            .features {
-                flex-direction: column;
+            h1 {
+                font-size: 2.5rem;
             }
             
-            h1 {
+            h2 {
                 font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .step {
+                padding-left: 80px;
+            }
+            
+            .step:before {
+                left: 20px;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Анимация падающих денег на весь фон -->
+    <div class="money-rain" id="money-rain"></div>
+    
     <header>
         <div class="container">
+            <svg class="monero-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#FF6B00" d="M32,0c17.7,0,32,14.3,32,32S49.7,64,32,64S0,49.7,0,32S14.3,0,32,0z M32,5C16.6,5,5,16.6,5,32 s11.6,27,27,27s27-11.6,27-27S47.4,5,32,5z M32,12c11,0,20,9,20,20s-9,20-20,20S12,43,12,32S21,12,32,12z M25.4,25.4v13.2H18.8 V18.8h6.6V25.4z M45.2,38.6H32.6v6.6h13.2V38.6z M45.2,25.4H32.6v6.6h12.6V25.4z M32.6,18.8v6.6H18.8v-6.6H32.6z"/>
+            </svg>
             <h1>CheckMyXMR</h1>
-            <p class="subtitle">Мощный Telegram-бот для мониторинга вашего майнинга Monero на пуле MoneroOcean. Получайте статистику в один клик!</p>
-            <a href="https://t.me/checkmyxmr_bot" class="cta-button">Начать использовать бота</a>
+            <p class="subtitle">Продвинутый мониторинг майнинга Monero через Telegram. Реальная статистика, мгновенные уведомления и аналитика доходности прямо в вашем телефоне.</p>
+            <a href="https://t.me/checkmyxmr_bot" class="cta-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Начать использовать
+            </a>
         </div>
     </header>
     
     <div class="container">
+        <section class="about-project">
+            <div class="container">
+                <h2>CheckMyXMR — ваш надежный помощник в майнинге Monero</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p class="subtitle">CheckMyXMR — это инновационный сервис мониторинга майнинга Monero, разработанный энтузиастами криптовалютного сообщества для удобства майнеров.</p>
+                        
+                        <p>Наш проект помогает майнерам Monero эффективно отслеживать свою деятельность на пуле MoneroOcean, предоставляя точные данные и аналитику в режиме реального времени через удобный Telegram-интерфейс.</p>
+                        
+                        <div class="stats">
+                            <div class="stat-item">
+                                <div class="stat-value">24/7</div>
+                                <div class="stat-label">Круглосуточный мониторинг</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">100%</div>
+                                <div class="stat-label">Конфиденциальность</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0%</div>
+                                <div class="stat-label">Комиссия</div>
+                            </div>
+                        </div>
+                        
+                        <div class="benefits">
+                            <div class="benefit-item">
+                                <div class="benefit-icon">🔒</div>
+                                <div class="benefit-text">
+                                    <h4>Безопасность</h4>
+                                    <p>Мы не храним ваши приватные ключи и не имеем доступа к средствам. Все данные передаются в зашифрованном виде.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">⚡</div>
+                                <div class="benefit-text">
+                                    <h4>Мгновенные уведомления</h4>
+                                    <p>Получайте оповещения о критических изменениях в работе вашего майнингового оборудования сразу же, как они происходят.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">📈</div>
+                                <div class="benefit-text">
+                                    <h4>Детальная аналитика</h4>
+                                    <p>Графики хешрейта, история выплат, эффективность оборудования и прогноз доходности на основе текущих показателей.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <!-- Placeholder для изображения интерфейса -->
+                        <div style="background: linear-gradient(135deg, var(--primary-dark), var(--darker)); height: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; padding: 2rem;">
+                            <div style="text-align: center;">
+                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 1rem;">
+                                    <path d="M21 5L2 12.5L9 13.5M21 5L18.5 20L9 13.5M21 5L9 13.5M9 13.5V19L12.2488 15.7229" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <p>Интерфейс CheckMyXMR в Telegram</p>
+                                <p style="opacity: 0.7; font-size: 0.9rem; margin-top: 0.5rem;">Удобный доступ к статистике вашего майнинга</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <section class="features">
             <div class="feature">
                 <div class="feature-icon">📊</div>
-                <h3>Реальная статистика</h3>
-                <p>Точные данные о вашем хешрейте, балансе и выплатах в режиме реального времени</p>
+                <h3>Детальная аналитика</h3>
+                <p>Графики хешрейта, история выплат, эффективность оборудования и прогноз доходности на основе текущих показателей</p>
             </div>
             
             <div class="feature">
                 <div class="feature-icon">⏱️</div>
                 <h3>Экономия времени</h3>
-                <p>Вся информация о вашем майнинге в одном месте - больше не нужно проверять сайт пула</p>
+                <p>Вся ключевая информация в одном месте без необходимости постоянно проверять сайт пула</p>
             </div>
             
             <div class="feature">
                 <div class="feature-icon">🔔</div>
-                <h3>Уведомления</h3>
-                <p>Автоматические оповещения о важных событиях и ежедневные отчеты</p>
+                <h3>Умные уведомления</h3>
+                <p>Настраиваемые оповещения о критических событиях: падение хешрейта, перегрев оборудования, выплаты</p>
             </div>
         </section>
         
         <section class="telegram-bot">
-            <h2>Наш Telegram-бот</h2>
-            <p>Добавьте бота в свои чаты для удобного мониторинга</p>
+            <h2>Telegram-бот CheckMyXMR</h2>
+            <p class="subtitle">Получайте статистику вашего майнинга Monero в любом месте через удобного Telegram-бота</p>
             <div class="bot-username">@checkmyxmr_bot</div>
-            <a href="https://t.me/checkmyxmr_bot" class="cta-button">Перейти к боту</a>
+            <a href="https://t.me/checkmyxmr_bot" class="cta-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;">
+                    <path d="M21 5L2 12.5L9 13.5M21 5L18.5 20L9 13.5M21 5L9 13.5M9 13.5V19L12.2488 15.7229" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Перейти к боту
+            </a>
         </section>
         
         <section class="how-it-works">
             <div class="container">
-                <h2>Как это работает?</h2>
+                <h2>Как начать использовать?</h2>
+                <p class="subtitle">Всего 3 простых шага для подключения мониторинга</p>
+                
                 <div class="steps">
                     <div class="step">
-                        <h3>Добавьте бота</h3>
-                        <p>Перейдите в Telegram и найдите нашего бота @checkmyxmr_bot или нажмите кнопку выше</p>
+                        <h3>Добавьте бота в Telegram</h3>
+                        <p>Найдите @checkmyxmr_bot или перейдите по ссылке выше. Бот работает в личных чатах и групповых чатах майнеров.</p>
                     </div>
                     
                     <div class="step">
-                        <h3>Введите адрес кошелька</h3>
-                        <p>Бот запросит ваш адрес кошелька Monero, используемый на MoneroOcean</p>
+                        <h3>Введите адрес кошелька XMR</h3>
+                        <p>Бот запросит ваш адрес кошелька Monero, используемый на пуле MoneroOcean. Данные хранятся в зашифрованном виде.</p>
                     </div>
                     
                     <div class="step">
-                        <h3>Получайте статистику</h3>
-                        <p>Теперь вы можете в любой момент запросить актуальную информацию о вашем майнинге</p>
+                        <h3>Настройте мониторинг</h3>
+                        <p>Выберите частоту уведомлений и типы отслеживаемых событий. Получайте статистику по запросу или автоматически.</p>
                     </div>
                 </div>
             </div>
@@ -215,9 +603,53 @@
     
     <footer>
         <div class="container">
-            <p>© 2025 CheckMyXMR. Все права защищены.</p>
-            <p>Независимый проект для сообщества Monero</p>
+            <svg class="monero-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#FF6B00" d="M32,0c17.7,0,32,14.3,32,32S49.7,64,32,64S0,49.7,0,32S14.3,0,32,0z M32,5C16.6,5,5,16.6,5,32 s11.6,27,27,27s27-11.6,27-27S47.4,5,32,5z M32,12c11,0,20,9,20,20s-9,20-20,20S12,43,12,32S21,12,32,12z M25.4,25.4v13.2H18.8 V18.8h6.6V25.4z M45.2,38.6H32.6v6.6h13.2V38.6z M45.2,25.4H32.6v6.6h12.6V25.4z M32.6,18.8v6.6H18.8v-6.6H32.6z"/>
+            </svg>
+            <p>© 2025 CheckMyXMR. Независимый проект для сообщества Monero.</p>
+            <p>Мы не храним ваши приватные ключи и не имеем доступа к средствам.</p>
         </div>
     </footer>
+
+    <script>
+        // Анимация падающих денег на весь фон
+        document.addEventListener('DOMContentLoaded', function() {
+            const moneyRain = document.getElementById('money-rain');
+            const coinCount = 50; // Увеличили количество монет
+            
+            for (let i = 0; i < coinCount; i++) {
+                createCoin();
+            }
+            
+            function createCoin() {
+                const coin = document.createElement('div');
+                coin.classList.add('money-coin');
+                
+                // Случайные параметры монеты
+                const size = Math.random() * 30 + 15; // Больший разброс размеров
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15; // Больший разброс задержки
+                const duration = Math.random() * 20 + 10; // Больший разброс длительности
+                const opacity = Math.random() * 0.6 + 0.2;
+                const rotation = Math.random() * 720 - 360; // Вращение в разных направлениях
+                
+                coin.style.width = `${size}px`;
+                coin.style.height = `${size}px`;
+                coin.style.left = `${posX}%`;
+                coin.style.opacity = opacity;
+                coin.style.animationDuration = `${duration}s`;
+                coin.style.animationDelay = `${delay}s`;
+                coin.style.transform = `rotate(${rotation}deg)`;
+                
+                moneyRain.appendChild(coin);
+                
+                // После завершения анимации создаем новую монету
+                setTimeout(() => {
+                    coin.remove();
+                    createCoin();
+                }, duration * 1000);
+            }
+        });
+    </script>
 </body>
 </html>
