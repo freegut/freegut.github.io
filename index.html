@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CheckMyXMR - Продвинутый мониторинг майнинга Monero</title>
+    <title>CheckMyXMR - Advanced Monero Mining Monitor</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FF6B00; /* Оранжевый Monero */
+            --primary: #FF6B00;
             --primary-dark: #CC5600;
             --secondary: #4C4C6D;
             --accent: #1A9FFF;
@@ -30,6 +30,13 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         header {
@@ -68,6 +75,9 @@
             color: transparent;
             display: inline-block;
             line-height: 1.2;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out 0.3s forwards;
         }
         
         h2 {
@@ -75,6 +85,20 @@
             margin-bottom: 2rem;
             position: relative;
             display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out 0.5s forwards;
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         h2::after {
@@ -94,6 +118,9 @@
             max-width: 800px;
             margin: 0 auto 2rem;
             line-height: 1.8;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease-out 0.7s forwards;
         }
         
         .cta-button {
@@ -114,6 +141,9 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease-out 0.9s forwards;
         }
         
         .cta-button:hover {
@@ -154,7 +184,14 @@
             text-align: center;
             border: 1px solid var(--card-border);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out forwards;
         }
+        
+        .feature:nth-child(1) { animation-delay: 0.4s; }
+        .feature:nth-child(2) { animation-delay: 0.6s; }
+        .feature:nth-child(3) { animation-delay: 0.8s; }
         
         .feature:hover {
             transform: translateY(-10px);
@@ -206,7 +243,14 @@
             border-radius: 12px;
             border: 1px solid var(--card-border);
             transition: transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out forwards;
         }
+        
+        .step:nth-child(1) { animation-delay: 0.3s; }
+        .step:nth-child(2) { animation-delay: 0.5s; }
+        .step:nth-child(3) { animation-delay: 0.7s; }
         
         .step:hover {
             transform: translateX(10px);
@@ -259,6 +303,9 @@
             text-align: center;
             margin: 6rem 0;
             position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out 0.5s forwards;
         }
         
         .bot-username {
@@ -279,9 +326,22 @@
             height: 60px;
             margin-bottom: 1.5rem;
             opacity: 0.9;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: scaleIn 0.8s ease-out 0.2s forwards;
         }
         
-        /* Анимация падающих денег на весь фон */
+        @keyframes scaleIn {
+            from { 
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
         .money-rain {
             position: fixed;
             top: 0;
@@ -299,7 +359,7 @@
             background-size: contain;
             width: 30px;
             height: 30px;
-            opacity: 0.8;
+            opacity: 0.4;
             animation: falling linear infinite;
             z-index: 0;
         }
@@ -310,10 +370,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.8;
+                opacity: 0.4;
             }
             90% {
-                opacity: 0.8;
+                opacity: 0.4;
             }
             100% {
                 transform: translateY(calc(100vh + 100px)) rotate(360deg);
@@ -321,7 +381,6 @@
             }
         }
         
-        /* Секция о проекте */
         .about-project {
             background: var(--card-bg);
             padding: 5rem 0;
@@ -330,31 +389,20 @@
             border-radius: 16px;
             border: 1px solid var(--card-border);
             backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out 0.4s forwards;
         }
         
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 3rem;
             align-items: center;
         }
         
         .about-text {
             position: relative;
-        }
-        
-        .about-image {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            border: 1px solid var(--primary);
-        }
-        
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
         }
         
         .stats {
@@ -371,7 +419,14 @@
             padding: 1.5rem;
             text-align: center;
             transition: transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease-out forwards;
         }
+        
+        .stat-item:nth-child(1) { animation-delay: 0.5s; }
+        .stat-item:nth-child(2) { animation-delay: 0.7s; }
+        .stat-item:nth-child(3) { animation-delay: 0.9s; }
         
         .stat-item:hover {
             transform: translateY(-5px);
@@ -399,7 +454,14 @@
             display: flex;
             align-items: flex-start;
             margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease-out forwards;
         }
+        
+        .benefit-item:nth-child(1) { animation-delay: 0.6s; }
+        .benefit-item:nth-child(2) { animation-delay: 0.8s; }
+        .benefit-item:nth-child(3) { animation-delay: 1.0s; }
         
         .benefit-icon {
             font-size: 1.5rem;
@@ -417,6 +479,164 @@
         .benefit-text p {
             opacity: 0.85;
             margin-bottom: 0;
+        }
+
+        .language-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .language-switch button {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--light);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .language-switch button.active {
+            background: var(--primary);
+            color: var(--darker);
+        }
+
+        .tabs {
+            margin: 4rem 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            color: var(--light);
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .tab-button:hover {
+            color: var(--primary);
+        }
+
+        .tab-button.active {
+            color: var(--primary);
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 100%;
+                opacity: 1;
+            }
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .donate-section {
+            text-align: center;
+            margin: 4rem 0;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .donate-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .donate-option {
+            background: none;
+            border: none;
+            color: var(--light);
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .donate-option:hover {
+            color: var(--primary);
+        }
+
+        .donate-option.active {
+            color: var(--primary);
+        }
+
+        .donate-option.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .wallet-address {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            word-break: break-all;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid var(--card-border);
+        }
+
+        .wallet-address.active {
+            display: block;
+        }
+
+        .wallet-address:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
         
         @media (max-width: 1024px) {
@@ -453,151 +673,200 @@
             .stats {
                 grid-template-columns: 1fr;
             }
+
+            .tab-buttons {
+                gap: 1rem;
+            }
+
+            .tab-button {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+
+            .donate-toggle {
+                gap: 1rem;
+            }
+
+            .donate-option {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Анимация падающих денег на весь фон -->
     <div class="money-rain" id="money-rain"></div>
     
     <header>
+        <div class="language-switch">
+            <button class="lang-btn active" data-lang="en">ENG</button>
+            <button class="lang-btn" data-lang="ru">RU</button>
+        </div>
         <div class="container">
             <svg class="monero-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#FF6B00" d="M32,0c17.7,0,32,14.3,32,32S49.7,64,32,64S0,49.7,0,32S14.3,0,32,0z M32,5C16.6,5,5,16.6,5,32 s11.6,27,27,27s27-11.6,27-27S47.4,5,32,5z M32,12c11,0,20,9,20,20s-9,20-20,20S12,43,12,32S21,12,32,12z M25.4,25.4v13.2H18.8 V18.8h6.6V25.4z M45.2,38.6H32.6v6.6h13.2V38.6z M45.2,25.4H32.6v6.6h12.6V25.4z M32.6,18.8v6.6H18.8v-6.6H32.6z"/>
             </svg>
-            <h1>CheckMyXMR</h1>
-            <p class="subtitle">Продвинутый мониторинг майнинга Monero через Telegram. Реальная статистика, мгновенные уведомления и аналитика доходности прямо в вашем телефоне.</p>
+            <h1 data-en="CheckMyXMR" data-ru="CheckMyXMR">CheckMyXMR</h1>
+            <p class="subtitle" data-en="Advanced Monero mining monitoring via Telegram. Real-time stats, instant alerts, and profitability analytics in your phone." data-ru="Продвинутый мониторинг майнинга Monero через Telegram. Реальная статистика, мгновенные уведомления и аналитика доходности прямо в вашем телефоне.">
+                Advanced Monero mining monitoring via Telegram. Real-time stats, instant alerts, and profitability analytics in your phone.
+            </p>
             <a href="https://t.me/checkmyxmr_bot" class="cta-button">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;">
                     <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                Начать использовать
+                <span data-en="Start Using" data-ru="Начать использовать">Start Using</span>
             </a>
         </div>
     </header>
     
     <div class="container">
-        <section class="about-project">
-            <div class="container">
-                <h2>CheckMyXMR — ваш надежный помощник в майнинге Monero</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p class="subtitle">CheckMyXMR — это инновационный сервис мониторинга майнинга Monero, разработанный энтузиастами криптовалютного сообщества для удобства майнеров.</p>
-                        
-                        <p>Наш проект помогает майнерам Monero эффективно отслеживать свою деятельность на пуле MoneroOcean, предоставляя точные данные и аналитику в режиме реального времени через удобный Telegram-интерфейс.</p>
-                        
-                        <div class="stats">
-                            <div class="stat-item">
-                                <div class="stat-value">24/7</div>
-                                <div class="stat-label">Круглосуточный мониторинг</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">100%</div>
-                                <div class="stat-label">Конфиденциальность</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0%</div>
-                                <div class="stat-label">Комиссия</div>
-                            </div>
-                        </div>
-                        
-                        <div class="benefits">
-                            <div class="benefit-item">
-                                <div class="benefit-icon">🔒</div>
-                                <div class="benefit-text">
-                                    <h4>Безопасность</h4>
-                                    <p>Мы не храним ваши приватные ключи и не имеем доступа к средствам. Все данные передаются в зашифрованном виде.</p>
+        <div class="tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="about" data-en="About" data-ru="О проекте">About</button>
+                <button class="tab-button" data-tab="features" data-en="Features" data-ru="Функции">Features</button>
+                <button class="tab-button" data-tab="how-to" data-en="How To" data-ru="Как начать">How To</button>
+            </div>
+
+            <div class="tab-content active" id="about">
+                <section class="about-project">
+                    <div class="container">
+                        <h2 data-en="CheckMyXMR — Your Reliable Monero Mining Assistant" data-ru="CheckMyXMR — ваш надежный помощник в майнинге Monero">CheckMyXMR — Your Reliable Monero Mining Assistant</h2>
+                        <div class="about-content">
+                            <div class="about-text">
+                                <p class="subtitle" data-en="CheckMyXMR is an innovative monitoring service for Monero miners, developed by crypto enthusiasts for convenience." data-ru="CheckMyXMR — это инновационный сервис мониторинга майнинга Monero, разработанный энтузиастами криптовалютного сообщества для удобства майнеров.">
+                                    CheckMyXMR is an innovative monitoring service for Monero miners, developed by crypto enthusiasts for convenience.
+                                </p>
+                                <p data-en="Our project helps Monero miners efficiently track their activity on the MoneroOcean pool with real-time data and analytics via a user-friendly Telegram interface." data-ru="Наш проект помогает майнерам Monero эффективно отслеживать свою деятельность на пуле MoneroOcean, предоставляя точные данные и аналитику в режиме реального времени через удобный Telegram-интерфейс.">
+                                    Our project helps Monero miners efficiently track their activity on the MoneroOcean pool with real-time data and analytics via a user-friendly Telegram interface.
+                                </p>
+                                <div class="stats">
+                                    <div class="stat-item">
+                                        <div class="stat-value">24/7</div>
+                                        <div class="stat-label" data-en="Monitoring" data-ru="Круглосуточный мониторинг">Monitoring</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-value">100%</div>
+                                        <div class="stat-label" data-en="Privacy" data-ru="Конфиденциальность">Privacy</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-value">0%</div>
+                                        <div class="stat-label" data-en="Fees" data-ru="Комиссия">Fees</div>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="benefit-item">
-                                <div class="benefit-icon">⚡</div>
-                                <div class="benefit-text">
-                                    <h4>Мгновенные уведомления</h4>
-                                    <p>Получайте оповещения о критических изменениях в работе вашего майнингового оборудования сразу же, как они происходят.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="benefit-item">
-                                <div class="benefit-icon">📈</div>
-                                <div class="benefit-text">
-                                    <h4>Детальная аналитика</h4>
-                                    <p>Графики хешрейта, история выплат, эффективность оборудования и прогноз доходности на основе текущих показателей.</p>
+                                <div class="benefits">
+                                    <div class="benefit-item">
+                                        <div class="benefit-icon">🔒</div>
+                                        <div class="benefit-text">
+                                            <h4 data-en="Security" data-ru="Безопасность">Security</h4>
+                                            <p data-en="We do not store private keys or access funds. All data is transmitted encrypted." data-ru="Мы не храним ваши приватные ключи и не имеем доступа к средствам. Все данные передаются в зашифрованном виде.">
+                                                We do not store private keys or access funds. All data is transmitted encrypted.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <div class="benefit-icon">⚡</div>
+                                        <div class="benefit-text">
+                                            <h4 data-en="Instant Alerts" data-ru="Мгновенные уведомления">Instant Alerts</h4>
+                                            <p data-en="Get notifications about critical changes in your mining equipment as they happen." data-ru="Получайте оповещения о критических изменениях в работе вашего майнингового оборудования сразу же, как они происходят.">
+                                                Get notifications about critical changes in your mining equipment as they happen.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <div class="benefit-icon">📈</div>
+                                        <div class="benefit-text">
+                                            <h4 data-en="Detailed Analytics" data-ru="Детальная аналитика">Detailed Analytics</h4>
+                                            <p data-en="Hashrate graphs, payment history, equipment efficiency, and profitability forecasts." data-ru="Графики хешрейта, история выплат, эффективность оборудования и прогноз доходности.">
+                                                Hashrate graphs, payment history, equipment efficiency, and profitability forecasts.
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="about-image">
-                        <!-- Placeholder для изображения интерфейса -->
-                        <div style="background: linear-gradient(135deg, var(--primary-dark), var(--darker)); height: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; padding: 2rem;">
-                            <div style="text-align: center;">
-                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 1rem;">
-                                    <path d="M21 5L2 12.5L9 13.5M21 5L18.5 20L9 13.5M21 5L9 13.5M9 13.5V19L12.2488 15.7229" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <p>Интерфейс CheckMyXMR в Telegram</p>
-                                <p style="opacity: 0.7; font-size: 0.9rem; margin-top: 0.5rem;">Удобный доступ к статистике вашего майнинга</p>
+                </section>
+            </div>
+
+            <div class="tab-content" id="features">
+                <section class="features">
+                    <div class="feature">
+                        <div class="feature-icon">📊</div>
+                        <h3 data-en="Detailed Analytics" data-ru="Детальная аналитика">Detailed Analytics</h3>
+                        <p data-en="Hashrate graphs, payment history, equipment efficiency, and profitability forecasts." data-ru="Графики хешрейта, история выплат, эффективность оборудования и прогноз доходности.">
+                            Hashrate graphs, payment history, equipment efficiency, and profitability forecasts.
+                        </p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">⏱️</div>
+                        <h3 data-en="Time-Saving" data-ru="Экономия времени">Time-Saving</h3>
+                        <p data-en="All key information in one place without needing to check the pool website constantly." data-ru="Вся ключевая информация в одном месте без необходимости постоянно проверять сайт пула.">
+                            All key information in one place without needing to check the pool website constantly.
+                        </p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔔</div>
+                        <h3 data-en="Smart Notifications" data-ru="Умные уведомления">Smart Notifications</h3>
+                        <p data-en="Customizable alerts for critical events: hashrate drops, equipment overheating, payments." data-ru="Настраиваемые оповещения о критических событиях: падение хешрейта, перегрев оборудования, выплаты.">
+                            Customizable alerts for critical events: hashrate drops, equipment overheating, payments.
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="tab-content" id="how-to">
+                <section class="how-it-works">
+                    <div class="container">
+                        <h2 data-en="How to Start Using?" data-ru="Как начать использовать?">How to Start Using?</h2>
+                        <p class="subtitle" data-en="Just 3 simple steps to start monitoring" data-ru="Всего 3 простых шага для подключения мониторинга">Just 3 simple steps to start monitoring</p>
+                        <div class="steps">
+                            <div class="step">
+                                <h3 data-en="Add Bot to Telegram" data-ru="Добавьте бота в Telegram">Add Bot to Telegram</h3>
+                                <p data-en="Find @checkmyxmr_bot or click the link above. Works in private and group chats." data-ru="Найдите @checkmyxmr_bot или перейдите по ссылке выше. Бот работает в личных чатах и групповых чатах майнеров.">
+                                    Find @checkmyxmr_bot or click the link above. Works in private and group chats.
+                                </p>
+                            </div>
+                            <div class="step">
+                                <h3 data-en="Enter XMR Wallet Address" data-ru="Введите адрес кошелька XMR">Enter XMR Wallet Address</h3>
+                                <p data-en="The bot will request your Monero wallet address used on MoneroOcean. Data is stored encrypted." data-ru="Бот запросит ваш адрес кошелька Monero, используемый на пуле MoneroOcean. Данные хранятся в зашифрованном виде.">
+                                    The bot will request your Monero wallet address used on MoneroOcean. Data is stored encrypted.
+                                </p>
+                            </div>
+                            <div class="step">
+                                <h3 data-en="Set Up Monitoring" data-ru="Настройте мониторинг">Set Up Monitoring</h3>
+                                <p data-en="Choose notification frequency and event types. Get stats on-demand or automatically." data-ru="Выберите частоту уведомлений и типы отслеживаемых событий. Получайте статистику по запросу или автоматически.">
+                                    Choose notification frequency and event types. Get stats on-demand or automatically.
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
-        </section>
-        
-        <section class="features">
-            <div class="feature">
-                <div class="feature-icon">📊</div>
-                <h3>Детальная аналитика</h3>
-                <p>Графики хешрейта, история выплат, эффективность оборудования и прогноз доходности на основе текущих показателей</p>
-            </div>
-            
-            <div class="feature">
-                <div class="feature-icon">⏱️</div>
-                <h3>Экономия времени</h3>
-                <p>Вся ключевая информация в одном месте без необходимости постоянно проверять сайт пула</p>
-            </div>
-            
-            <div class="feature">
-                <div class="feature-icon">🔔</div>
-                <h3>Умные уведомления</h3>
-                <p>Настраиваемые оповещения о критических событиях: падение хешрейта, перегрев оборудования, выплаты</p>
-            </div>
-        </section>
+        </div>
         
         <section class="telegram-bot">
-            <h2>Telegram-бот CheckMyXMR</h2>
-            <p class="subtitle">Получайте статистику вашего майнинга Monero в любом месте через удобного Telegram-бота</p>
+            <h2 data-en="CheckMyXMR Telegram Bot" data-ru="Telegram-бот CheckMyXMR">CheckMyXMR Telegram Bot</h2>
+            <p class="subtitle" data-en="Get your Monero mining stats anywhere via our convenient Telegram bot" data-ru="Получайте статистику вашего майнинга Monero в любом месте через удобного Telegram-бота">
+                Get your Monero mining stats anywhere via our convenient Telegram bot
+            </p>
             <div class="bot-username">@checkmyxmr_bot</div>
             <a href="https://t.me/checkmyxmr_bot" class="cta-button">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;">
                     <path d="M21 5L2 12.5L9 13.5M21 5L18.5 20L9 13.5M21 5L9 13.5M9 13.5V19L12.2488 15.7229" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                Перейти к боту
+                <span data-en="Go to Bot" data-ru="Перейти к боту">Go to Bot</span>
             </a>
         </section>
-        
-        <section class="how-it-works">
-            <div class="container">
-                <h2>Как начать использовать?</h2>
-                <p class="subtitle">Всего 3 простых шага для подключения мониторинга</p>
-                
-                <div class="steps">
-                    <div class="step">
-                        <h3>Добавьте бота в Telegram</h3>
-                        <p>Найдите @checkmyxmr_bot или перейдите по ссылке выше. Бот работает в личных чатах и групповых чатах майнеров.</p>
-                    </div>
-                    
-                    <div class="step">
-                        <h3>Введите адрес кошелька XMR</h3>
-                        <p>Бот запросит ваш адрес кошелька Monero, используемый на пуле MoneroOcean. Данные хранятся в зашифрованном виде.</p>
-                    </div>
-                    
-                    <div class="step">
-                        <h3>Настройте мониторинг</h3>
-                        <p>Выберите частоту уведомлений и типы отслеживаемых событий. Получайте статистику по запросу или автоматически.</p>
-                    </div>
-                </div>
+
+        <section class="donate-section">
+            <h2 data-en="Support the Project!" data-ru="Поддержите проект монетой!">Support the Project!</h2>
+            <div class="donate-toggle">
+                <button class="donate-option active" data-coin="xmr">XMR</button>
+                <button class="donate-option" data-coin="btc">BTC</button>
             </div>
+            <div class="wallet-address active" data-coin="xmr" data-address="476QbdB3aHNdjocb4gGuirRDkBU2qsoswAifjUftBu9t7yAm2tHNxHaD7UdTXT4keiU68WbUJWp4m4XDubYjm76wGTY118H">476QbdB3aHNdjocb4gGuirRDkBU2qsoswAifjUftBu9t7yAm2tHNxHaD7UdTXT4keiU68WbUJWp4m4XDubYjm76wGTY118H</div>
+            <div class="wallet-address" data-coin="btc" data-address="Скоро...">Coming soon...</div>
         </section>
     </div>
     
@@ -606,16 +875,19 @@
             <svg class="monero-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#FF6B00" d="M32,0c17.7,0,32,14.3,32,32S49.7,64,32,64S0,49.7,0,32S14.3,0,32,0z M32,5C16.6,5,5,16.6,5,32 s11.6,27,27,27s27-11.6,27-27S47.4,5,32,5z M32,12c11,0,20,9,20,20s-9,20-20,20S12,43,12,32S21,12,32,12z M25.4,25.4v13.2H18.8 V18.8h6.6V25.4z M45.2,38.6H32.6v6.6h13.2V38.6z M45.2,25.4H32.6v6.6h12.6V25.4z M32.6,18.8v6.6H18.8v-6.6H32.6z"/>
             </svg>
-            <p>© 2025 CheckMyXMR. Независимый проект для сообщества Monero.</p>
-            <p>Мы не храним ваши приватные ключи и не имеем доступа к средствам.</p>
+            <p data-en="© 2025 CheckMyXMR. Independent Monero community project." data-ru="© 2025 CheckMyXMR. Независимый проект для сообщества Monero.">
+                © 2025 CheckMyXMR. Independent Monero community project.
+            </p>
+            <p data-en="We do not store private keys or access funds." data-ru="Мы не храним ваши приватные ключи и не имеем доступа к средствам.">
+                We do not store private keys or access funds.
+            </p>
         </div>
     </footer>
 
     <script>
-        // Анимация падающих денег на весь фон
         document.addEventListener('DOMContentLoaded', function() {
             const moneyRain = document.getElementById('money-rain');
-            const coinCount = 50; // Увеличили количество монет
+            const coinCount = 50;
             
             for (let i = 0; i < coinCount; i++) {
                 createCoin();
@@ -624,14 +896,12 @@
             function createCoin() {
                 const coin = document.createElement('div');
                 coin.classList.add('money-coin');
-                
-                // Случайные параметры монеты
-                const size = Math.random() * 30 + 15; // Больший разброс размеров
+                const size = Math.random() * 30 + 15;
                 const posX = Math.random() * 100;
-                const delay = Math.random() * 15; // Больший разброс задержки
-                const duration = Math.random() * 20 + 10; // Больший разброс длительности
-                const opacity = Math.random() * 0.6 + 0.2;
-                const rotation = Math.random() * 720 - 360; // Вращение в разных направлениях
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 20 + 10;
+                const opacity = Math.random() * 0.4 + 0.2;
+                const rotation = Math.random() * 720 - 360;
                 
                 coin.style.width = `${size}px`;
                 coin.style.height = `${size}px`;
@@ -643,11 +913,108 @@
                 
                 moneyRain.appendChild(coin);
                 
-                // После завершения анимации создаем новую монету
                 setTimeout(() => {
                     coin.remove();
                     createCoin();
                 }, duration * 1000);
+            }
+
+            // Language switch
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const elements = document.querySelectorAll('[data-en]');
+            let currentLang = 'en';
+
+            langButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentLang = btn.dataset.lang;
+                    langButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    elements.forEach(el => {
+                        el.textContent = el.dataset[currentLang] || el.textContent;
+                    });
+                });
+            });
+
+            // Tab switch
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById(btn.dataset.tab).classList.add('active');
+                });
+                // Set initial text based on language
+                btn.textContent = btn.dataset[currentLang] || btn.dataset.en;
+            });
+
+            // Update tab button text on language change
+            langButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabButtons.forEach(tab => {
+                        tab.textContent = tab.dataset[currentLang] || tab.dataset.en;
+                    });
+                });
+            });
+
+            // Donation section
+            const donateOptions = document.querySelectorAll('.donate-option');
+            const walletAddresses = document.querySelectorAll('.wallet-address');
+
+            donateOptions.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    donateOptions.forEach(b => b.classList.remove('active'));
+                    walletAddresses.forEach(w => w.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.querySelector(`.wallet-address[data-coin="${btn.dataset.coin}"]`).classList.add('active');
+                });
+            });
+
+            // Copy wallet address
+            walletAddresses.forEach(addr => {
+                addr.addEventListener('click', () => {
+                    const address = addr.dataset.address || '';
+                    const originalText = address;
+                    
+                    // Modern clipboard API
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(address).then(() => {
+                            addr.textContent = currentLang === 'en' ? 'Copied!' : 'Скопировано!';
+                            setTimeout(() => {
+                                addr.textContent = originalText;
+                            }, 1000);
+                        }).catch(err => {
+                            console.error('Clipboard write failed:', err);
+                            fallbackCopy(address, addr, currentLang, originalText);
+                        });
+                    } else {
+                        // Fallback for older browsers
+                        fallbackCopy(address, addr, currentLang, originalText);
+                    }
+                });
+            });
+
+            function fallbackCopy(address, addr, currentLang, originalText) {
+                const textarea = document.createElement('textarea');
+                textarea.value = address;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    addr.textContent = currentLang === 'en' ? 'Copied!' : 'Скопировано!';
+                    setTimeout(() => {
+                        addr.textContent = originalText;
+                        document.body.removeChild(textarea);
+                    }, 1000);
+                } catch (err) {
+                    console.error('Fallback copy failed:', err);
+                    document.body.removeChild(textarea);
+                }
             }
         });
     </script>
